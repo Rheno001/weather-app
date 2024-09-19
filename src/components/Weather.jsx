@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react'
-import './Weather.css'
 import search_icon from '../assets/search.png'
 import clear_icon from '../assets/clear.png'
 import cloud_icon from '../assets/cloud.png'
@@ -72,28 +71,28 @@ const Weather = () => {
     }, [])
 
   return (
-    <div className='weather self-center p-[40px] border-r-[10px] flex flex-col items-center'>
-      <div className="search-bar">
-          <input ref={inputRef} type="text" placeholder='Search' />
-          <img src={search_icon} alt="" onClick={(()=>search(inputRef.current.value))} />
+    <div className='weather place-self-center p-[40px] rounded-lg flex flex-col items-center bg-slate-600'>
+      <div className="search-bar flex items-center gap-[12px]">
+          <input ref={inputRef} type="text" placeholder='Search' className='h-[50px] border-0 outline-none rounded-xl pl-[25px] text-amber-950 bg-white text-[18px]'/>
+          <img src={search_icon} alt="" className='text-white w-[50px] p-[15px] rounded-full bg-white cursor-pointer' onClick={(()=>search(inputRef.current.value))} />
         </div>  
         {weatherData?<>
-          <img src={weatherData.icon} alt="" className='weather-icon'/>
-        <p className='temperature'>{weatherData.temperature}°C</p>
-        <p className='location'>{weatherData.location}</p>
-        <div className="weather-data">
-          <div className="col">
-            <img src={humidity_icon} alt="" />
+          <img src={weatherData.icon} alt="" className='weather-icon w-[150px] mx-[0] my-[30px]'/>
+        <p className='temperature text-white text-[80px]'>{weatherData.temperature}°C</p>
+        <p className='location text-white text-[40px]'>{weatherData.location}</p>
+        <div className="weather-data w-full mt-[40px] text-white flex justify-between">
+          <div className="col flex items-start gap-[12px] text-[20px]">
+            <img src={humidity_icon} alt="" className='w-[26px] mt-[10px]' />
             <div>
               <p>{weatherData.humidity} %</p>
-              <span>Humidity</span>
+              <span className='block text-md'>Humidity</span>
             </div>
           </div>
-          <div className="col">
+          <div className="col flex items-start gap-[12px] text-[20px]">
             <img src={wind_icon} alt="" />
             <div>
               <p>{weatherData.windSpeed}KM/H</p>
-              <span>Wind Speed</span>
+              <span className='block text-md'>Wind Speed</span>
             </div>
           </div>
         </div>

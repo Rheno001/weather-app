@@ -16,6 +16,8 @@ const Weather = () => {
 
   const [weatherData, setWeatherData] = useState(false);
 
+
+
   const allIcons = {
     "01d": clear_icon,
     "01n": clear_icon,
@@ -43,6 +45,13 @@ const Weather = () => {
 
       const response = await fetch(url);
       const data = await response.json();
+
+      if(!response.ok){
+        alert(data.message);
+        return;
+      }
+
+
       console.log(data);
       const icon = allIcons[data.weather[0].icon] || clear_icon;
       setWeatherData({
@@ -53,6 +62,8 @@ const Weather = () => {
         icon: icon
       })
     } catch (error) {
+      setWeatherData(false);
+      console.error("Error in fetching weather data");
       
     }
   }
@@ -63,10 +74,11 @@ const Weather = () => {
   return (
     <div className='weather'>
       <div className="search-bar">
-          <input ref={inputRef} type="text" placeholder='Search'/>
+          <input ref={inputRef} type="text" placeholder='Search' />
           <img src={search_icon} alt="" onClick={(()=>search(inputRef.current.value))} />
         </div>  
-        <img src={weatherData.icon} alt="" className='weather-icon'/>
+        {weatherData?<>
+          <img src={weatherData.icon} alt="" className='weather-icon'/>
         <p className='temperature'>{weatherData.temperature}°C</p>
         <p className='location'>{weatherData.location}</p>
         <div className="weather-data">
@@ -85,6 +97,8 @@ const Weather = () => {
             </div>
           </div>
         </div>
+        </>:<></>}
+        
     </div>
   )
 }
